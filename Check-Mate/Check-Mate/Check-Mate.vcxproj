@@ -140,15 +140,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
+    <ClInclude Include="inputHelper.h" />
     <ClInclude Include="Trie.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="inputHelper.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Trie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="in201301.pgn" />
-    <None Include="subset201301.pgn" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

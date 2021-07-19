@@ -21,17 +21,22 @@
     <ClInclude Include="Trie.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="inputHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="Trie.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Trie.cpp">
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="inputHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="in201301.pgn" />
-    <None Include="subset201301.pgn" />
   </ItemGroup>
 </Project>

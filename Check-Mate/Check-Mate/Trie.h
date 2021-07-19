@@ -3,19 +3,19 @@
 #include "Game.h"
 #pragma once
 struct Trie {
-	bool leaf;
-	std::string key;
+	bool isLeaf;
 	std::unordered_map<std::string, Trie*> children;
-	int points;
+	float points;
+	int numChildren;
 
 	Trie();
-	Trie(std::string _key);
+	//Trie(std::string _key);
 	float rating();
+	Trie* getChild(std::string key);
 };
 
-void insert(Trie * root, Game g);
-// insert the game properly
-// increment score of all nodes passed.
+Trie* insert(Trie* root, std::string gameStr, char points);
+Trie* insertHelp(Trie* root, std::string& gameStr, char points);
 
-Trie* search(Trie* root, std::string);	// Searches the entire Trie given the entire word string
-Trie* srchOneLvl(Trie* root, std::string);	// Searches just one level at a time
+Trie* search(Trie* root, std::string gameStr);	// Searches the entire Trie given the entire word string
+Trie* srchOneLvl(Trie* root, std::string key);	// Searches just one level at a time
