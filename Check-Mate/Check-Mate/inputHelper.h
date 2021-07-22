@@ -7,5 +7,5 @@
 
 void trimF(std::string filename);
 Trie* loadTrieFromTrim(Trie* root, std::string trimFilename);
-Trie* loadTrieFromInput(Trie* root, std::string inFilename);
+//Trie* loadTrieFromInput(Trie* root, std::string inFilename);
 RBNode* loadRBFromTrim(RBNode* root, std::string trimFilename);
