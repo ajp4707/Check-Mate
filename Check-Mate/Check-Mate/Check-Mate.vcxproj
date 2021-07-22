@@ -139,11 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="RBTree.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="inputHelper.h" />
     <ClInclude Include="Trie.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="RBTree.cpp" />
     <ClCompile Include="inputHelper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Trie.cpp" />

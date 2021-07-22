@@ -24,6 +24,9 @@
     <ClInclude Include="inputHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RBTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Trie.cpp">
@@ -33,6 +36,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="inputHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RBTree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

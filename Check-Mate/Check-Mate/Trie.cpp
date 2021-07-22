@@ -13,6 +13,8 @@ Trie::Trie()
  * @return score
  */
 float Trie::rating() {
+
+	std::cout << "Trie sum: " << points << ". count: " << numChildren << std::endl;
 	return points / numChildren;
 }
 
@@ -123,8 +125,10 @@ Trie* srchOneLvl(Trie* root, std::string key) {
  */
 Trie* search(Trie* root, std::string gameStr) {
 
-	if (gameStr + "\n" == root->nextMoves)
+	if (gameStr == root->nextMoves) {
+		//std::cout << "Found it! Leaf" << std::endl;
 		return root;
+	}
 
 	int ind = gameStr.find(" ");
 
@@ -136,7 +140,7 @@ Trie* search(Trie* root, std::string gameStr) {
 	std::string rest = gameStr.substr(ind + 1);
 
 	if (root->children.find(key) != root->children.end()) { // if key exists
-		std::cout << key << " Key does exist " << std::endl;
+		//std::cout << key << " Key does exist " << std::endl;
 		return search(root->children[key], rest);
 	}
 	return nullptr;
