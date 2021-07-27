@@ -33,3 +33,5 @@ Red-Black Tree rotations - https://www.programiz.com/dsa/red-black-tree and http
 Tries - https://www.geeksforgeeks.org/trie-insert-and-search/
 
 Fast file I/O using buffers - https://comp.lang.cpp.moderated.narkive.com/HfegujV0/fgets-vs-std-getline-performance#post2
+
+String overlap finding algorithms - https://neil.fraser.name/news/2010/11/04/
