@@ -12,7 +12,7 @@ On startup (and after a GUI reset), the number after "R-B Load:" is how many mil
 
 ## References
 
-Lichess Database - https://database.lichess.org/ (The database we used is August 2013 with 300k + games)
+Lichess Database - https://database.lichess.org/ (The database we used is January 2013 with 100k + games)
 
 SFML Reference - https://www.sfml-dev.org/documentation/2.5.1/
 
