@@ -1,3 +1,8 @@
+/** We did not produce this file. This API was provided by Baran Can Oner
+*	Source: https://github.com/BaranCanOener/ConsoleChess
+*	We only use his Chess board and piece framework
+*	All other code (GUI, data structures) is ours
+*/
 #include "pieces.h"
 
 //Generic piece implementation - parent class of all pieces

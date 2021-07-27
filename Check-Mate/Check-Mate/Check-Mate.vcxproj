@@ -148,7 +148,6 @@
     <ClInclude Include="Board.h" />
     <ClInclude Include="Pieces.h" />
     <ClInclude Include="RBTree.h" />
-    <ClInclude Include="Game.h" />
     <ClInclude Include="inputHelper.h" />
     <ClInclude Include="Trie.h" />
   </ItemGroup>

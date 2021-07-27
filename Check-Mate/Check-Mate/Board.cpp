@@ -1,5 +1,9 @@
+/** We did not produce this file. This API was provided by Baran Can Oner
+*	Source: https://github.com/BaranCanOener/ConsoleChess
+*	We only use his Chess board and piece framework
+*	All other code (GUI, data structures) is ours
+*/
 #include "board.h"
-#include <iostream>
 
 void ChessBoard::resetToDebugBoard() {
 	//placeholder used for debugging purposes
