@@ -119,11 +119,12 @@ struct Database {
 
 
 		// If the node is a branching node
-		if (whiteMove) {
+		//if (whiteMove) {
+		if (true) {
 			std::priority_queue<std::pair<float, std::string>, std::vector< std::pair<float, std::string>>, std::greater< std::pair<float, std::string>>> pq;
 			for (auto iter = trie->children.begin(); iter != trie->children.end(); iter++) {
 				Trie* child = iter->second;
-				pq.push(std::make_pair(child->points, iter->first));
+				pq.push(std::make_pair(child->numChildren, iter->first));
 				if (pq.size() > n)
 					pq.pop();
 			}
