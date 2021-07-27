@@ -177,7 +177,7 @@ struct ChessGUI {
 
 	void initText() {
 		font.loadFromFile("arial.ttf");
-		header = sf::Text("White Turn", font);
+		header = sf::Text("White's Turn", font);
 		header.setFillColor(sf::Color::Black);
 		sf::FloatRect textRect = header.getLocalBounds();
 		header.setOrigin(textRect.left + textRect.width / 2.0f,
@@ -197,12 +197,12 @@ struct ChessGUI {
 		scoreText.setFillColor(sf::Color::Black);
 		scoreText.setPosition(sf::Vector2f(525, 75));
 
-		std::string tTime = "Trie Time: " + std::to_string(database.timeLoadTrie) + " ms";
+		std::string tTime = "Trie Load: " + std::to_string(database.timeLoadTrie) + " ms";
 		tTimeText = sf::Text(tTime, font, 20);
 		tTimeText.setFillColor(sf::Color::Black);
 		tTimeText.setPosition(sf::Vector2f(525, 150));
 
-		std::string rbTime = "RB Time: " + std::to_string(database.timeLoadRB) + " ms";
+		std::string rbTime = "RB Load: " + std::to_string(database.timeLoadRB) + " ms";
 		rbTimeText = sf::Text(rbTime, font, 20);
 		rbTimeText.setFillColor(sf::Color::Black);
 		rbTimeText.setPosition(sf::Vector2f(525, 175));

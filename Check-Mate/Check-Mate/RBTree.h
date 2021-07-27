@@ -5,7 +5,6 @@
 #define red 1
 
 // Inspiration: Ms. Resch's lecture on Red-Black Trees
-// https://gist.github.com/derka6391/7b7463ac36a9fb04bea0668397d41d23
 struct RBNode
 {
 	std::string gameStr;
