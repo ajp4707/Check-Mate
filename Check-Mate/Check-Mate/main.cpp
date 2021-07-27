@@ -1,12 +1,15 @@
-#include "Game.h"
-#include "Trie.h"
-#include "inputHelper.h"
-#include <iostream>
-#include "RBTree.h"
-#include <map>
-#include "Board.h"
 #include <chrono>
 #include <queue>
+#include<string>
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <map>
+#include "Trie.h"
+#include "inputHelper.h"
+#include "RBTree.h"
+#include "Board.h"
+
+#pragma once
 using namespace std::chrono;
 
 enum class Result {Running, WhiteWin, BlackWin, Draw};
