@@ -1,6 +1,7 @@
 #pragma once
 #include "pieces.h"
 #include <tuple>
+#include <vector>
 #include <SFML/Graphics.hpp>
 
 struct MoveData
@@ -10,6 +11,7 @@ struct MoveData
 	std::tuple<char, char> prevEnPassantPawn;
 	Piece* pieceMoved = nullptr;
 	Piece* pieceTaken = nullptr;
+	std::vector<std::tuple<char, char>> pieceIdentical = std::vector<std::tuple<char,char>>();
 	bool isWhiteLRookCastling = false;
 	bool isWhiteRRookCastling = false;
 	bool isBlackLRookCastling = false;

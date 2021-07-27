@@ -203,6 +203,13 @@ MoveData ChessBoard::moveTo(std::tuple<char, char> orig, std::tuple<char, char> 
 	move.dest = dest;
 	move.pieceMoved = ChessBoard::squares[std::get<0>(orig)][std::get<1>(orig)];
 	move.pieceTaken = ChessBoard::squares[std::get<0>(dest)][std::get<1>(dest)];
+	// Generate Identicals vector and calculate getMoveList before the move is actually made.
+	for (char i = 0; i < 8; i++)
+		for (char j = 0; j < 8; j++) 
+			if (squares[i][j] != nullptr && squares[i][j]->getSymbol() == move.pieceMoved->getSymbol() && squares[i][j]->colour == move.pieceMoved->colour && !(i == std::get<0>(orig) && j ==std::get<1>(orig))) {
+				squares[i][j]->getMoveList(ChessBoard::squares, i, j);
+				move.pieceIdentical.push_back(std::make_tuple(i, j));
+			}
 	//attempting to move from an empty square => return invalid move
 	if (move.pieceMoved == nullptr)
 		return move;
