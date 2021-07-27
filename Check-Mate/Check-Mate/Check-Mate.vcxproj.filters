@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="IO">
+      <UniqueIdentifier>{e6d9e2ea-5bb8-402a-9f25-cef9cb4fe0b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -25,6 +28,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RBTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pieces.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Board.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -41,8 +50,68 @@
     <ClCompile Include="RBTree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Pieces.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="in201301.pgn" />
+    <Image Include="icons\bBish.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="icons\bKing.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="icons\bKnight.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="icons\bPawn.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="icons\bQueen.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="icons\bRook.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="icons\empty-chessboard.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="icons\wBish.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="icons\wKing.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="icons\wKnight.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="icons\wPawn.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="icons\wQueen.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="icons\wRook.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ioFiles\in201301.pgn">
+      <Filter>IO</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ioFiles\output.txt">
+      <Filter>IO</Filter>
+    </Text>
+    <Text Include="ioFiles\output500.txt">
+      <Filter>IO</Filter>
+    </Text>
+    <Text Include="ioFiles\output50000.txt">
+      <Filter>IO</Filter>
+    </Text>
   </ItemGroup>
 </Project>

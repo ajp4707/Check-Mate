@@ -51,8 +51,8 @@ Trie* insert(Trie* root, std::string gameStr, char points) {
 	int ind = gameStr.find(" ");
 
 	if (ind == std::string::npos) {
-		// Do something
-		root->points = points;
+		// End of the line?
+		root->points += points;
 		return root;
 	}
 
@@ -77,6 +77,7 @@ Trie* insert(Trie* root, std::string gameStr, char points) {
 		insert(root, gameStr, points);
 		root->numChildren -= 2;
 		root->points -= oldPoints;
+		root->points -= points;
 	}
 
 	root->numChildren++;
@@ -125,7 +126,7 @@ Trie* srchOneLvl(Trie* root, std::string key) {
  */
 Trie* search(Trie* root, std::string gameStr) {
 
-	if (gameStr == root->nextMoves) {
+	if (root->nextMoves.find(gameStr) == 0) {
 		//std::cout << "Found it! Leaf" << std::endl;
 		return root;
 	}

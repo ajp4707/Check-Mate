@@ -125,7 +125,7 @@ float rating(RBNode* root, std::string gameStr) {
 	std::cout << "RB sum: " << sum << ". count: " << count << std::endl;
 	if (count)
 		return sum / count;
-	else return 0;
+	else return 1;
 }
 
 void traverseSum(RBNode* root, std::string& left, std::string& right, float& sum, int& count) {

@@ -16,7 +16,7 @@ void trimF(std::string filename) {
 	fopen_s(&input, filename.c_str(), "r");
 
 	std::ofstream output;
-	output.open("output.txt", std::ofstream::out | std::ofstream::trunc);
+	output.open("iofiles/output.txt", std::ofstream::out | std::ofstream::trunc);
 
 	// Read in PGN format. 
 	// Verify that the chess game meets the following criteria before adding to output file
@@ -38,15 +38,15 @@ void trimF(std::string filename) {
 				continue;
 			std::string result = sline.substr(sline.length() - 4, 4);
 			if (result == "1-0\n") {	// white wins
-				score = "2";
+				score = "1";
 				sline = sline.substr(0, sline.length() - 4);
 			}
 			else if (result == "0-1\n") {		// black wins
-				score = "0";
+				score = "-1";
 				sline = sline.substr(0, sline.length() - 4);
 			}
 			else if (result == "1/2\n") {		// draw
-				score = "1";
+				score = "0";
 				sline = sline.substr(0, sline.length() - 8);
 			}
 
