@@ -303,21 +303,32 @@ struct ChessGUI {
 							childrenText.setString("# Child Games: " + std::to_string(database.children));
 
 							if (whiteTurn) {
-								recsText.setString("Rec. Moves for White");
+								recsText.setString("Rec. Moves for White:");
 							}
 							else {
-								recsText.setString("Rec. Moves for Black");
+								recsText.setString("Rec. Moves for Black:");
 							}
 
-							// Sort the values by magnitue using selection sort
 							for (int i = 0; i < 3; i++)
 								recMoves[i].setString("");
 							auto bestMoves = database.bestMoves(gameStr, 3, whiteTurn);
+
+							// Filter out best moves for the opposing player
+							for (auto it = bestMoves.begin(); it != bestMoves.end(); ++it) {
+								if (it->second < 0 && whiteTurn) {
+									bestMoves.erase(it);
+								}
+								else if (it->second > 0 && !whiteTurn) {
+									bestMoves.erase(it);
+								}
+							}
+
+							// Sort the values by magnitude using selection sort
 							if (bestMoves.size() > 0) {
 								for (int x = 0; x < bestMoves.size() - 1; x++) {
 									int biggestElIndex = x;
 									for (int y = x + 1; y < bestMoves.size(); y++) {
-										if (bestMoves[y].second > bestMoves[biggestElIndex].second) {
+										if (abs(bestMoves[y].second) > abs(bestMoves[biggestElIndex].second)) {
 											biggestElIndex = y;
 										}
 									}
@@ -327,7 +338,7 @@ struct ChessGUI {
 								}
 							}
 							for (int i = 0; i < bestMoves.size(); i++)
-								recMoves[i].setString(bestMoves[i].first + " (Score: " + std::to_string(bestMoves[i].second) + ")");
+								recMoves[i].setString(bestMoves[i].first + " (Score: " + std::to_string(abs(bestMoves[i].second)) + ")");
 						}
 
 					}

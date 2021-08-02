@@ -15,7 +15,7 @@ Trie::Trie()
 float Trie::rating() {
 
 	std::cout << "Trie sum: " << points << ". count: " << numChildren << std::endl;
-	return abs(points / numChildren);
+	return points / numChildren;
 }
 
 /**
