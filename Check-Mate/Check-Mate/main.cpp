@@ -210,7 +210,7 @@ struct ChessGUI {
 
 	// Make sure to load in databases from main before running GUI
 	void runGUI() {
-		sf::RenderWindow window(sf::VideoMode(800, 512), "Check-Mate");
+		sf::RenderWindow window(sf::VideoMode(830, 512), "Check-Mate");
 		window.setFramerateLimit(60);
 
 		sf::Texture checker;
@@ -285,13 +285,25 @@ struct ChessGUI {
 							}
 							else if (whiteTurn) {
 								header.setString("White's Turn");
-								scoreText.setString("Game Status: " + std::to_string(database.ratingTrie(gameStr) ));
+								float gameStatus = database.ratingTrie(gameStr);
+								if (gameStatus > 0) {
+									scoreText.setString("Game Status: " + std::to_string(abs(gameStatus)) + " (White)");
+								}
+								else {
+									scoreText.setString("Game Status: " + std::to_string(abs(gameStatus)) + " (Black)");
+								}
 								database.ratingRB(gameStr);
 							}
 							else {
 								header.setString("Black's Turn");
-								scoreText.setString("Game Status: " + std::to_string(database.ratingRB(gameStr) ));
-								database.ratingTrie(gameStr);
+								float gameStatus = database.ratingTrie(gameStr);
+								if (gameStatus > 0) {
+									scoreText.setString("Game Status: " + std::to_string(abs(gameStatus)) + " (White)");
+								}
+								else {
+									scoreText.setString("Game Status: " + std::to_string(abs(gameStatus)) + " (Black)");
+								}
+								database.ratingRB(gameStr);
 							}
 
 							if (database.children == 0) {
