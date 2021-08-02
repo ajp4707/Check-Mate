@@ -118,34 +118,21 @@ struct Database {
 		}
 
 
-		// If the node is a branching node
-		if (whiteMove) {
-			std::priority_queue<std::pair<float, std::string>, std::vector< std::pair<float, std::string>>, std::greater< std::pair<float, std::string>>> pq;
-			for (auto iter = trie->children.begin(); iter != trie->children.end(); iter++) {
-				Trie* child = iter->second;
-				pq.push(std::make_pair(child->points, iter->first));
-				if (pq.size() > n)
-					pq.pop();
-			}
-			while (!pq.empty()) {
-				std::string tempStr = pq.top().second;
-				moves.push_back(std::make_pair(tempStr, trie->getChild(tempStr)->rating()));
+		// If the node is a branching node.
+		std::priority_queue<std::pair<float, std::string>, std::vector< std::pair<float, std::string>>, std::greater< std::pair<float, std::string>>> pq;
+		for (auto iter = trie->children.begin(); iter != trie->children.end(); iter++) {
+			
+			Trie* child = iter->second;
+			// If white, exclude any negative scores, if black, exclude any positive scores.
+			if ((whiteMove && child->rating() >= 0) || (!whiteMove && child->rating() <= 0))
+				pq.push(std::make_pair(child->numChildren, iter->first));
+			if (pq.size() > n)
 				pq.pop();
-			}
 		}
-		else {
-			std::priority_queue<std::pair<float, std::string>> pq;
-			for (auto iter = trie->children.begin(); iter != trie->children.end(); iter++) {
-				Trie* child = iter->second;
-				pq.push(std::make_pair(child->points, iter->first));
-				if (pq.size() > n)
-					pq.pop();
-			}
-			while (!pq.empty()) {
-				std::string tempStr = pq.top().second;
-				moves.push_back(std::make_pair(tempStr, trie->getChild(tempStr)->rating()));
-				pq.pop();
-			}
+		while (!pq.empty()) {
+			std::string tempStr = pq.top().second;
+			moves.push_back(std::make_pair(tempStr, trie->getChild(tempStr)->rating()));
+			pq.pop();
 		}
 		return moves;
 	}
@@ -322,6 +309,7 @@ struct ChessGUI {
 								recsText.setString("Rec. Moves for Black");
 							}
 
+							// Sort the values by magnitue using selection sort
 							for (int i = 0; i < 3; i++)
 								recMoves[i].setString("");
 							auto bestMoves = database.bestMoves(gameStr, 3, whiteTurn);
