@@ -118,34 +118,21 @@ struct Database {
 		}
 
 
-		// If the node is a branching node
-		if (whiteMove) {
-			std::priority_queue<std::pair<float, std::string>, std::vector< std::pair<float, std::string>>, std::greater< std::pair<float, std::string>>> pq;
-			for (auto iter = trie->children.begin(); iter != trie->children.end(); iter++) {
-				Trie* child = iter->second;
-				pq.push(std::make_pair(child->points, iter->first));
-				if (pq.size() > n)
-					pq.pop();
-			}
-			while (!pq.empty()) {
-				std::string tempStr = pq.top().second;
-				moves.push_back(std::make_pair(tempStr, trie->getChild(tempStr)->rating()));
+		// If the node is a branching node.
+		std::priority_queue<std::pair<float, std::string>, std::vector< std::pair<float, std::string>>, std::greater< std::pair<float, std::string>>> pq;
+		for (auto iter = trie->children.begin(); iter != trie->children.end(); iter++) {
+			
+			Trie* child = iter->second;
+			// If white, exclude any negative scores, if black, exclude any positive scores.
+			if ((whiteMove && child->rating() >= 0) || (!whiteMove && child->rating() <= 0))
+				pq.push(std::make_pair(child->numChildren, iter->first));
+			if (pq.size() > n)
 				pq.pop();
-			}
 		}
-		else {
-			std::priority_queue<std::pair<float, std::string>> pq;
-			for (auto iter = trie->children.begin(); iter != trie->children.end(); iter++) {
-				Trie* child = iter->second;
-				pq.push(std::make_pair(child->points, iter->first));
-				if (pq.size() > n)
-					pq.pop();
-			}
-			while (!pq.empty()) {
-				std::string tempStr = pq.top().second;
-				moves.push_back(std::make_pair(tempStr, trie->getChild(tempStr)->rating()));
-				pq.pop();
-			}
+		while (!pq.empty()) {
+			std::string tempStr = pq.top().second;
+			moves.push_back(std::make_pair(tempStr, trie->getChild(tempStr)->rating()));
+			pq.pop();
 		}
 		return moves;
 	}
@@ -164,7 +151,7 @@ struct ChessGUI {
 	bool whiteTurn = true;
 
 	sf::Font font;
-	sf::Text header, scoreText, tTimeText, rbTimeText, childrenText, bestMoveText, resetText;
+	sf::Text header, scoreText, tTimeText, rbTimeText, childrenText, recsText, bestMoveText, resetText;
 	sf::Text recMoves[3] = { sf::Text("", font, 20), sf::Text("", font, 20), sf::Text("", font, 20) };
 
 	ChessGUI() {
@@ -211,15 +198,19 @@ struct ChessGUI {
 		childrenText.setFillColor(sf::Color::Black);
 		childrenText.setPosition(sf::Vector2f(525, 200));
 
+		recsText = sf::Text("Rec. Moves for White", font, 20);
+		recsText.setFillColor(sf::Color::Black);
+		recsText.setPosition(sf::Vector2f(525, 250));
+
 		for (int i = 0; i < 3; i++) {
 			recMoves[i].setFillColor(sf::Color::Black);
-			recMoves[i].setPosition(sf::Vector2f(525, 250 + 25 * i));
+			recMoves[i].setPosition(sf::Vector2f(525, 275 + 25 * i));
 		}
 	}
 
 	// Make sure to load in databases from main before running GUI
 	void runGUI() {
-		sf::RenderWindow window(sf::VideoMode(800, 512), "Check-Mate");
+		sf::RenderWindow window(sf::VideoMode(830, 512), "Check-Mate");
 		window.setFramerateLimit(60);
 
 		sf::Texture checker;
@@ -294,13 +285,25 @@ struct ChessGUI {
 							}
 							else if (whiteTurn) {
 								header.setString("White's Turn");
-								scoreText.setString("Game Status: " + std::to_string(database.ratingTrie(gameStr) ));
+								float gameStatus = database.ratingTrie(gameStr);
+								if (gameStatus > 0) {
+									scoreText.setString("Game Status: " + std::to_string(abs(gameStatus)) + " (White)");
+								}
+								else {
+									scoreText.setString("Game Status: " + std::to_string(abs(gameStatus)) + " (Black)");
+								}
 								database.ratingRB(gameStr);
 							}
 							else {
 								header.setString("Black's Turn");
-								scoreText.setString("Game Status: " + std::to_string(database.ratingRB(gameStr) ));
-								database.ratingTrie(gameStr);
+								float gameStatus = database.ratingTrie(gameStr);
+								if (gameStatus > 0) {
+									scoreText.setString("Game Status: " + std::to_string(abs(gameStatus)) + " (White)");
+								}
+								else {
+									scoreText.setString("Game Status: " + std::to_string(abs(gameStatus)) + " (Black)");
+								}
+								database.ratingRB(gameStr);
 							}
 
 							if (database.children == 0) {
@@ -309,12 +312,45 @@ struct ChessGUI {
 							
 							tTimeText.setString("Trie search: " + std::to_string(database.timeRatingTrie) + " us");
 							rbTimeText.setString("R-B search: " + std::to_string(database.timeRatingRB) + " us");
-							childrenText.setString("# Child Games : " + std::to_string(database.children));
+							childrenText.setString("# Child Games: " + std::to_string(database.children));
+
+							if (whiteTurn) {
+								recsText.setString("Rec. Moves for White:");
+							}
+							else {
+								recsText.setString("Rec. Moves for Black:");
+							}
+
 							for (int i = 0; i < 3; i++)
 								recMoves[i].setString("");
 							auto bestMoves = database.bestMoves(gameStr, 3, whiteTurn);
+
+							// Filter out best moves for the opposing player
+							for (auto it = bestMoves.begin(); it != bestMoves.end(); ++it) {
+								if (it->second < 0 && whiteTurn) {
+									bestMoves.erase(it);
+								}
+								else if (it->second > 0 && !whiteTurn) {
+									bestMoves.erase(it);
+								}
+							}
+
+							// Sort the values by magnitude using selection sort
+							if (bestMoves.size() > 0) {
+								for (int x = 0; x < bestMoves.size() - 1; x++) {
+									int biggestElIndex = x;
+									for (int y = x + 1; y < bestMoves.size(); y++) {
+										if (abs(bestMoves[y].second) > abs(bestMoves[biggestElIndex].second)) {
+											biggestElIndex = y;
+										}
+									}
+									auto temp = bestMoves[x];
+									bestMoves[x] = bestMoves[biggestElIndex];
+									bestMoves[biggestElIndex] = temp;
+								}
+							}
 							for (int i = 0; i < bestMoves.size(); i++)
-								recMoves[i].setString(bestMoves[i].first + " (Score: " + std::to_string(bestMoves[i].second ) + ")");
+								recMoves[i].setString(bestMoves[i].first + " (Score: " + std::to_string(abs(bestMoves[i].second)) + ")");
 						}
 
 					}
@@ -339,6 +375,7 @@ struct ChessGUI {
 			window.draw(tTimeText);
 			window.draw(rbTimeText);
 			window.draw(childrenText);
+			window.draw(recsText);
 			window.draw(bestMoveText);
 			window.draw(resetText);
 			for (int i = 0; i < 3; i++)

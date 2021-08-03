@@ -1,6 +1,5 @@
 #include<string>
 #include<unordered_map>
-#include "Game.h"
 #pragma once
 
 // Inspiration: https://www.geeksforgeeks.org/trie-insert-and-search/
