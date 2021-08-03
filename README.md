@@ -6,7 +6,7 @@ Given a current chess board state and a database of expertly-played chess games,
 
 For this release, open Check-Mate.sln in Visual Studio. Ensure the VS project has been configured with SFML. Run main.cpp. After a brief loading period, a GUI will appear with draggable chess pieces and an information tab on the right. 
 
-The game status number is a float ranging from -1 to 1 which indicates the average win rate of children games. A 1 represents a 100% white win rate, and a -1 represets a 100% black win rate. After a move is played, the most popular next moves from up to 3 children games will be presented.
+The game status number is a float ranging from 0 to 1 which indicates the average win rate of children games. A 1 represents a 100% win rate (for the color in parentheses), and a 0 represents a draw. After a move is played, the most popular next moves from up to 3 children games will be presented.
 
 On startup (and after a GUI reset), the number after "R-B Load:" is how many milliseconds it took to load in the chess game database. Likewise for "Trie Load". After a move has been made, the number after "R-B Search:" is how many microseconds it took to calculate the current game status.
 
